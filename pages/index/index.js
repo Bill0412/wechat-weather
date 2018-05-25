@@ -7,16 +7,26 @@ const weatherMap = {
   'snow': '雪'
 }
 
+const weatherColorMap = {
+  'sunny': '#cbeefd',
+  'cloudy': '#deeef6',
+  'overcast': '#c6ced2',
+  'lightrain': '#bdd5e1',
+  'heavyrain': '#c5ccd0',
+  'snow': '#aae1fc'
+}
+
 Page({
   data:{
-    nowTemp: 14,
-    nowWeather: 'Cloudy'
+    nowTemp: '',
+    nowWeather: '',
+    nowWeatherBackground: ''
   },
   onLoad(){
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now',
       data: {
-        city:'北京市'
+        city:'广州市'
       },
       success: res => {
         let result = res.data.result
@@ -24,7 +34,12 @@ Page({
         let weather = result.now.weather
         this.setData({
           nowTemp: temp + '°',
-          nowWeather: weatherMap[weather]
+          nowWeather: weatherMap[weather],
+          nowWeatherBackground: '/images/'+weather+'-bg.png'
+        })
+        wx.setNavigationBarColor({
+          frontColor: '#000000',
+          backgroundColor: weatherColorMap[weather]
         })
       }
     })
