@@ -20,7 +20,8 @@ Page({
   data:{
     nowTemp: '',
     nowWeather: '',
-    nowWeatherBackground: ''
+    nowWeatherBackground: '',
+    forcast: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   onLoad(){
     this.getNow()
@@ -40,6 +41,7 @@ Page({
       },
       success: res => {
         let result = res.data.result
+        console.log(result)
         let temp = result.now.temp
         let weather = result.now.weather
         this.setData({
